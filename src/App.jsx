@@ -2,58 +2,73 @@ import React, { useState } from 'react'
 import Header from './components/Header/Header'
 import Loading from './components/Loading/Loading'
 import Error from './components/Error/Error'
+import PokemonList from './pages/PokemonList/PokemonList'
 
 function App() {
-  const [showLoading, setShowLoading] = useState(false)
-  const [showError, setShowError] = useState(false)
+  const [currentView, setCurrentView] = useState('home') // 'home', 'pokemon', 'loading', 'error'
 
   const handleShowLoading = () => {
-    setShowLoading(true)
-    setShowError(false)
-    setTimeout(() => setShowLoading(false), 2000)
+    setCurrentView('loading')
+    setTimeout(() => setCurrentView('home'), 2000)
   }
 
   const handleShowError = () => {
-    setShowError(true)
-    setShowLoading(false)
+    setCurrentView('error')
   }
 
   const handleReset = () => {
-    setShowLoading(false)
-    setShowError(false)
+    setCurrentView('home')
+  }
+
+  const renderContent = () => {
+    switch (currentView) {
+      case 'pokemon':
+        return <PokemonList />
+      case 'loading':
+        return <Loading message="Carregando Pokémon..." />
+      case 'error':
+        return <Error message="Erro ao carregar dados!" onRetry={handleReset} />
+      default:
+        return (
+          <main style={{ padding: '2rem' }}>
+            <h2>Bem-vindo ao mundo dos Pokémon!</h2>
+            <p>Em breve você poderá explorar todos os Pokémon aqui.</p>
+            
+            <div style={{ marginTop: '2rem' }}>
+              <button 
+                onClick={() => setCurrentView('pokemon')}
+                style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
+              >
+                Ver Lista de Pokémon
+              </button>
+              <button 
+                onClick={handleShowLoading}
+                style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
+              >
+                Testar Loading
+              </button>
+              <button 
+                onClick={handleShowError}
+                style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
+              >
+                Testar Error
+              </button>
+              <button 
+                onClick={handleReset}
+                style={{ padding: '0.5rem 1rem' }}
+              >
+                Reset
+              </button>
+            </div>
+          </main>
+        )
+    }
   }
 
   return (
     <div className="App">
       <Header />
-      <main style={{ padding: '2rem' }}>
-        <h2>Bem-vindo ao mundo dos Pokémon!</h2>
-        <p>Em breve você poderá explorar todos os Pokémon aqui.</p>
-        
-        <div style={{ marginTop: '2rem' }}>
-          <button 
-            onClick={handleShowLoading}
-            style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
-          >
-            Testar Loading
-          </button>
-          <button 
-            onClick={handleShowError}
-            style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
-          >
-            Testar Error
-          </button>
-          <button 
-            onClick={handleReset}
-            style={{ padding: '0.5rem 1rem' }}
-          >
-            Reset
-          </button>
-        </div>
-
-        {showLoading && <Loading message="Carregando Pokémon..." />}
-        {showError && <Error message="Erro ao carregar dados!" onRetry={handleReset} />}
-      </main>
+      {renderContent()}
     </div>
   )
 }
