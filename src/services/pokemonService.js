@@ -2,7 +2,7 @@
 const API_BASE_URL = 'https://pokeapi.co/api/v2';
 
 class PokemonService {
-  // Buscar lista de Pokémon (primeiros 20)
+  // Buscar lista de Pokémon (primeiros 20) com detalhes completos
   async getPokemonList() {
     try {
       const response = await fetch(`${API_BASE_URL}/pokemon?limit=20`);
@@ -10,7 +10,21 @@ class PokemonService {
         throw new Error('Erro ao buscar lista de Pokémon');
       }
       const data = await response.json();
-      return data;
+      
+      // Buscar detalhes completos de cada Pokémon
+      const pokemonDetails = await Promise.all(
+        data.results.map(async (pokemon) => {
+          const details = await this.getPokemonDetails(pokemon.url);
+          return details;
+        })
+      );
+      
+      return {
+        results: pokemonDetails,
+        count: data.count,
+        next: data.next,
+        previous: data.previous
+      };
     } catch (error) {
       console.error('Erro ao buscar lista de Pokémon:', error);
       throw error;

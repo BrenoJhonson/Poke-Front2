@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import pokemonService from '../../services/pokemonService';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
+import PokemonCard from '../../components/PokemonCard/PokemonCard';
 
-function PokemonList() {
+function PokemonList({ onPokemonClick }) {
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,6 +27,14 @@ function PokemonList() {
     }
   };
 
+  const handlePokemonClick = (pokemon) => {
+    if (onPokemonClick) {
+      onPokemonClick(pokemon);
+    } else {
+      console.log('Ver detalhes:', pokemon.name);
+    }
+  };
+
   if (loading) {
     return <Loading message="Carregando Pokémon..." />;
   }
@@ -45,39 +54,12 @@ function PokemonList() {
         gap: '1rem',
         marginTop: '1rem'
       }}>
-        {pokemonList.map((pokemon, index) => (
-          <div 
-            key={pokemon.name}
-            style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              padding: '1rem',
-              textAlign: 'center',
-              backgroundColor: '#f9f9f9'
-            }}
-          >
-            <h3 style={{ textTransform: 'capitalize', marginBottom: '0.5rem' }}>
-              {pokemon.name}
-            </h3>
-            <p style={{ color: '#666', fontSize: '0.9rem' }}>
-              ID: {index + 1}
-            </p>
-            <button 
-              style={{
-                marginTop: '0.5rem',
-                padding: '0.25rem 0.5rem',
-                fontSize: '0.8rem',
-                backgroundColor: '#333',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-              onClick={() => console.log('Ver detalhes:', pokemon.name)}
-            >
-              Ver Detalhes
-            </button>
-          </div>
+        {pokemonList.map((pokemon) => (
+          <PokemonCard 
+            key={pokemon.id}
+            pokemon={pokemon}
+            onClick={handlePokemonClick}
+          />
         ))}
       </div>
     </div>

@@ -3,9 +3,11 @@ import Header from './components/Header/Header'
 import Loading from './components/Loading/Loading'
 import Error from './components/Error/Error'
 import PokemonList from './pages/PokemonList/PokemonList'
+import PokemonDetails from './pages/PokemonDetails/PokemonDetails'
 
 function App() {
-  const [currentView, setCurrentView] = useState('home') // 'home', 'pokemon', 'loading', 'error'
+  const [currentView, setCurrentView] = useState('home') // 'home', 'pokemon', 'pokemon-details', 'loading', 'error'
+  const [selectedPokemon, setSelectedPokemon] = useState(null)
 
   const handleShowLoading = () => {
     setCurrentView('loading')
@@ -18,12 +20,25 @@ function App() {
 
   const handleReset = () => {
     setCurrentView('home')
+    setSelectedPokemon(null)
+  }
+
+  const handlePokemonClick = (pokemon) => {
+    setSelectedPokemon(pokemon)
+    setCurrentView('pokemon-details')
+  }
+
+  const handleBackToList = () => {
+    setCurrentView('pokemon')
+    setSelectedPokemon(null)
   }
 
   const renderContent = () => {
     switch (currentView) {
       case 'pokemon':
-        return <PokemonList />
+        return <PokemonList onPokemonClick={handlePokemonClick} />
+      case 'pokemon-details':
+        return <PokemonDetails pokemon={selectedPokemon} onBack={handleBackToList} />
       case 'loading':
         return <Loading message="Carregando Pokémon..." />
       case 'error':
