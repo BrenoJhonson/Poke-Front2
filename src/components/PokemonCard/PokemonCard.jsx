@@ -1,4 +1,72 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const CardContainer = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const PokemonImageContainer = styled.div`
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const PokemonImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+`;
+
+const PokemonName = styled.h3`
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.1rem;
+  margin-top: 0;
+`;
+
+const PokemonId = styled.p`
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+`;
+
+const TypesContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+
+const TypeBadge = styled.span`
+  background-color: ${props => props.color || '#666'};
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+`;
 
 function PokemonCard({ pokemon, onClick }) {
   const getTypeColor = (type) => {
@@ -26,96 +94,32 @@ function PokemonCard({ pokemon, onClick }) {
   };
 
   return (
-    <div 
-      onClick={() => onClick && onClick(pokemon)}
-      style={{
-        border: '1px solid #ddd',
-        borderRadius: '12px',
-        padding: '1rem',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        cursor: 'pointer',
-        transition: 'all 0.2s ease',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-      }}
-      onMouseOver={(e) => {
-        e.target.style.transform = 'translateY(-2px)';
-        e.target.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
-      }}
-      onMouseOut={(e) => {
-        e.target.style.transform = 'translateY(0)';
-        e.target.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-      }}
-    >
-      {/* Imagem do Pokémon */}
-      <div style={{
-        width: '120px',
-        height: '120px',
-        margin: '0 auto 1rem',
-        backgroundColor: '#f0f0f0',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '3px solid #fff',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-      }}>
+    <CardContainer onClick={() => onClick && onClick(pokemon)}>
+      <PokemonImageContainer>
         {pokemon.sprites?.front_default ? (
-          <img 
+          <PokemonImage 
             src={pokemon.sprites.front_default} 
             alt={pokemon.name}
-            style={{ 
-              width: '100%', 
-              height: '100%', 
-              objectFit: 'contain' 
-            }}
           />
         ) : (
-          <span style={{ fontSize: '2rem' }}>🎮</span>
+          '🎮'
         )}
-      </div>
+      </PokemonImageContainer>
 
-      {/* Nome do Pokémon */}
-      <h3 style={{ 
-        textTransform: 'capitalize', 
-        marginBottom: '0.5rem',
-        color: '#333',
-        fontSize: '1.1rem'
-      }}>
-        {pokemon.name}
-      </h3>
+      <PokemonName>{pokemon.name}</PokemonName>
+      <PokemonId>#{pokemon.id.toString().padStart(3, '0')}</PokemonId>
 
-      {/* ID do Pokémon */}
-      <p style={{ 
-        color: '#666', 
-        fontSize: '0.9rem',
-        marginBottom: '0.5rem'
-      }}>
-        #{pokemon.id.toString().padStart(3, '0')}
-      </p>
-
-      {/* Tipos do Pokémon */}
-      {pokemon.types && (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-          {pokemon.types.map((typeInfo, index) => (
-            <span
-              key={index}
-              style={{
-                backgroundColor: getTypeColor(typeInfo.type.name),
-                color: 'white',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '12px',
-                fontSize: '0.8rem',
-                fontWeight: '500',
-                textTransform: 'capitalize'
-              }}
-            >
-              {typeInfo.type.name}
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
+      <TypesContainer>
+        {pokemon.types?.map((typeInfo, index) => (
+          <TypeBadge 
+            key={index} 
+            color={getTypeColor(typeInfo.type.name)}
+          >
+            {typeInfo.type.name}
+          </TypeBadge>
+        ))}
+      </TypesContainer>
+    </CardContainer>
   );
 }
 

@@ -4,6 +4,77 @@ import Loading from './components/Loading/Loading'
 import Error from './components/Error/Error'
 import PokemonList from './pages/PokemonList/PokemonList'
 import PokemonDetails from './pages/PokemonDetails/PokemonDetails'
+import styled from 'styled-components'
+
+const AppContainer = styled.div`
+  min-height: 100vh;
+  background-color: #f5f7fa;
+`;
+
+const HomeContainer = styled.main`
+  padding: 2rem;
+  text-align: center;
+`;
+
+const HomeTitle = styled.h2`
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+`;
+
+const HomeDescription = styled.p`
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const HomeButton = styled.button`
+  padding: 0.5rem 1rem;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #5a67d8;
+  }
+
+  &:nth-child(2) {
+    background-color: #48bb78;
+    
+    &:hover {
+      background-color: #38a169;
+    }
+  }
+
+  &:nth-child(3) {
+    background-color: #f56565;
+    
+    &:hover {
+      background-color: #e53e3e;
+    }
+  }
+
+  &:nth-child(4) {
+    background-color: #6c757d;
+    
+    &:hover {
+      background-color: #5a6268;
+    }
+  }
+`;
 
 function App() {
   const [currentView, setCurrentView] = useState('home') // 'home', 'pokemon', 'pokemon-details', 'loading', 'error'
@@ -45,46 +116,34 @@ function App() {
         return <Error message="Erro ao carregar dados!" onRetry={handleReset} />
       default:
         return (
-          <main style={{ padding: '2rem' }}>
-            <h2>Bem-vindo ao mundo dos Pokémon!</h2>
-            <p>Em breve você poderá explorar todos os Pokémon aqui.</p>
+          <HomeContainer>
+            <HomeTitle>Bem-vindo ao mundo dos Pokémon!</HomeTitle>
+            <HomeDescription>Em breve você poderá explorar todos os Pokémon aqui.</HomeDescription>
             
-            <div style={{ marginTop: '2rem' }}>
-              <button 
-                onClick={() => setCurrentView('pokemon')}
-                style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
-              >
+            <ButtonContainer>
+              <HomeButton onClick={() => setCurrentView('pokemon')}>
                 Ver Lista de Pokémon
-              </button>
-              <button 
-                onClick={handleShowLoading}
-                style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
-              >
+              </HomeButton>
+              <HomeButton onClick={handleShowLoading}>
                 Testar Loading
-              </button>
-              <button 
-                onClick={handleShowError}
-                style={{ marginRight: '1rem', padding: '0.5rem 1rem' }}
-              >
+              </HomeButton>
+              <HomeButton onClick={handleShowError}>
                 Testar Error
-              </button>
-              <button 
-                onClick={handleReset}
-                style={{ padding: '0.5rem 1rem' }}
-              >
+              </HomeButton>
+              <HomeButton onClick={handleReset}>
                 Reset
-              </button>
-            </div>
-          </main>
+              </HomeButton>
+            </ButtonContainer>
+          </HomeContainer>
         )
     }
   }
 
   return (
-    <div className="App">
+    <AppContainer>
       <Header />
       {renderContent()}
-    </div>
+    </AppContainer>
   )
 }
 

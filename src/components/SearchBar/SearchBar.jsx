@@ -1,4 +1,130 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const SearchContainer = styled.div`
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+`;
+
+const SearchBarMain = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+`;
+
+const SearchInputContainer = styled.div`
+  flex: 1;
+  position: relative;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  padding-left: 2.5rem;
+
+  &:focus {
+    border-color: #667eea;
+  }
+`;
+
+const SearchIcon = styled.span`
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+`;
+
+const FilterButton = styled.button`
+  padding: 0.75rem 1rem;
+  background-color: ${props => props.selectedType === 'all' ? '#667eea' : props.typeColor};
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+const ArrowIcon = styled.span`
+  transform: ${props => props.isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transition: transform 0.2s ease;
+`;
+
+const ClearButton = styled.button`
+  padding: 0.75rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+`;
+
+const FilterPanel = styled.div`
+  border-top: 1px solid #e1e5e9;
+  padding: 1rem;
+  background-color: #f8f9fa;
+`;
+
+const FilterTitle = styled.h4`
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0;
+`;
+
+const TypeGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+`;
+
+const TypeButton = styled.button`
+  padding: 0.5rem;
+  border: 2px solid;
+  border-color: ${props => props.isSelected ? props.typeColor : '#e1e5e9'};
+  background-color: ${props => props.isSelected ? props.typeColor : 'white'};
+  color: ${props => props.isSelected ? 'white' : '#333'};
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+
+  &:hover {
+    background-color: ${props => props.isSelected ? props.typeColor : '#f0f0f0'};
+  }
+`;
 
 function SearchBar({ searchTerm, onSearchChange, selectedType, onTypeChange }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -66,163 +192,58 @@ function SearchBar({ searchTerm, onSearchChange, selectedType, onTypeChange }) {
   };
 
   return (
-    <div style={{
-      backgroundColor: 'white',
-      borderRadius: '12px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-      marginBottom: '2rem',
-      overflow: 'hidden',
-      transition: 'all 0.3s ease'
-    }}>
-      {/* Barra de pesquisa principal */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '1rem',
-        gap: '1rem'
-      }}>
-        {/* Campo de busca */}
-        <div style={{ flex: 1, position: 'relative' }}>
-          <input
+    <SearchContainer>
+      <SearchBarMain>
+        <SearchInputContainer>
+          <SearchInput
             type="text"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Buscar Pokémon por nome..."
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #e1e5e9',
-              borderRadius: '8px',
-              fontSize: '1rem',
-              outline: 'none',
-              transition: 'border-color 0.2s ease',
-              paddingLeft: '2.5rem'
-            }}
-            onFocus={(e) => e.target.style.borderColor = '#667eea'}
-            onBlur={(e) => e.target.style.borderColor = '#e1e5e9'}
           />
-          <span style={{
-            position: 'absolute',
-            left: '0.75rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            fontSize: '1.2rem'
-          }}>
-            🔍
-          </span>
-        </div>
+          <SearchIcon>🔍</SearchIcon>
+        </SearchInputContainer>
 
-        {/* Botão de filtros */}
-        <button
+        <FilterButton
+          selectedType={selectedType}
+          typeColor={getTypeColor(selectedType)}
           onClick={() => setIsExpanded(!isExpanded)}
-          style={{
-            padding: '0.75rem 1rem',
-            backgroundColor: selectedType === 'all' ? '#667eea' : getTypeColor(selectedType),
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontSize: '1rem',
-            fontWeight: '600',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            transition: 'all 0.2s ease'
-          }}
         >
           <span>{getTypeIcon(selectedType)}</span>
           <span>{selectedType === 'all' ? 'Todos' : selectedType}</span>
-          <span style={{ 
-            transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.2s ease'
-          }}>
-            ▼
-          </span>
-        </button>
+          <ArrowIcon isExpanded={isExpanded}>▼</ArrowIcon>
+        </FilterButton>
 
-        {/* Botão limpar */}
         {(searchTerm || selectedType !== 'all') && (
-          <button
-            onClick={handleClearFilters}
-            style={{
-              padding: '0.75rem',
-              backgroundColor: '#6c757d',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '1rem'
-            }}
-          >
+          <ClearButton onClick={handleClearFilters}>
             ✕
-          </button>
+          </ClearButton>
         )}
-      </div>
+      </SearchBarMain>
 
-      {/* Painel de filtros expandido */}
       {isExpanded && (
-        <div style={{
-          borderTop: '1px solid #e1e5e9',
-          padding: '1rem',
-          backgroundColor: '#f8f9fa'
-        }}>
-          <h4 style={{ 
-            marginBottom: '1rem', 
-            color: '#333',
-            fontSize: '1rem',
-            fontWeight: '600'
-          }}>
-            Filtrar por Tipo:
-          </h4>
+        <FilterPanel>
+          <FilterTitle>Filtrar por Tipo:</FilterTitle>
           
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-            gap: '0.5rem'
-          }}>
+          <TypeGrid>
             {pokemonTypes.map((type) => (
-              <button
+              <TypeButton
                 key={type}
                 onClick={() => {
                   onTypeChange(type);
                   setIsExpanded(false);
                 }}
-                style={{
-                  padding: '0.5rem',
-                  border: '2px solid',
-                  borderColor: selectedType === type ? getTypeColor(type) : '#e1e5e9',
-                  backgroundColor: selectedType === type ? getTypeColor(type) : 'white',
-                  color: selectedType === type ? 'white' : '#333',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  fontWeight: '500',
-                  textTransform: 'capitalize',
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.25rem'
-                }}
-                onMouseOver={(e) => {
-                  if (selectedType !== type) {
-                    e.target.style.backgroundColor = '#f0f0f0';
-                  }
-                }}
-                onMouseOut={(e) => {
-                  if (selectedType !== type) {
-                    e.target.style.backgroundColor = 'white';
-                  }
-                }}
+                isSelected={selectedType === type}
+                typeColor={getTypeColor(type)}
               >
                 <span>{getTypeIcon(type)}</span>
                 <span>{type === 'all' ? 'Todos' : type}</span>
-              </button>
+              </TypeButton>
             ))}
-          </div>
-        </div>
+          </TypeGrid>
+        </FilterPanel>
       )}
-    </div>
+    </SearchContainer>
   );
 }
 

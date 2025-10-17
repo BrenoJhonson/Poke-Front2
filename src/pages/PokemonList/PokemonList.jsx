@@ -4,6 +4,38 @@ import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import styled from 'styled-components';
+
+const ListContainer = styled.div`
+  padding: 2rem;
+`;
+
+const PageTitle = styled.h2`
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+`;
+
+const ResultsInfo = styled.p`
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+`;
+
+const EmptyState = styled.div`
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  color: #666;
+`;
+
+const PokemonGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+`;
 
 function PokemonList({ onPokemonClick }) {
   const [pokemonList, setPokemonList] = useState([]);
@@ -124,8 +156,8 @@ function PokemonList({ onPokemonClick }) {
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Lista de Pokémon</h2>
+    <ListContainer>
+      <PageTitle>Lista de Pokémon</PageTitle>
       
       <SearchBar
         searchTerm={searchTerm}
@@ -134,7 +166,7 @@ function PokemonList({ onPokemonClick }) {
         onTypeChange={setSelectedType}
       />
 
-      <p>
+      <ResultsInfo>
         {searchTerm.trim() 
           ? (displayPokemon.length > 0 
               ? `Encontrados ${displayPokemon.length} Pokémon com "${searchTerm}"`
@@ -143,36 +175,19 @@ function PokemonList({ onPokemonClick }) {
               ? `Encontrados ${pokemonList.length} Pokémon`
               : `Encontrados ${pokemonList.length} Pokémon do tipo ${selectedType}`)
         }
-      </p>
+      </ResultsInfo>
       
       {displayPokemon.length === 0 && !searchTerm.trim() ? (
-        <div style={{
-          textAlign: 'center',
-          padding: '2rem',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '8px',
-          color: '#666'
-        }}>
+        <EmptyState>
           <p>Nenhum Pokémon encontrado.</p>
-        </div>
+        </EmptyState>
       ) : displayPokemon.length === 0 && searchTerm.trim() ? (
-        <div style={{
-          textAlign: 'center',
-          padding: '2rem',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '8px',
-          color: '#666'
-        }}>
+        <EmptyState>
           <p>Nenhum Pokémon encontrado com o nome "{searchTerm}".</p>
           <p>Tente um nome diferente ou limpe a busca.</p>
-        </div>
+        </EmptyState>
       ) : (
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', 
-          gap: '1rem',
-          marginTop: '1rem'
-        }}>
+        <PokemonGrid>
           {displayPokemon.map((pokemon) => (
             <PokemonCard 
               key={pokemon.id}
@@ -180,9 +195,9 @@ function PokemonList({ onPokemonClick }) {
               onClick={handlePokemonClick}
             />
           ))}
-        </div>
+        </PokemonGrid>
       )}
-    </div>
+    </ListContainer>
   );
 }
 

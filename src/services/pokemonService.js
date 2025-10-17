@@ -75,19 +75,6 @@ class PokemonService {
     }
   }
 
-  // Buscar Pokémon por nome
-  async getPokemonByName(name) {
-    try {
-      const response = await fetch(`${API_BASE_URL}/pokemon/${name.toLowerCase()}`);
-      if (!response.ok) {
-        throw new Error('Pokémon não encontrado');
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('Erro ao buscar Pokémon por nome:', error);
-      throw error;
-    }
-  }
 
   // Buscar Pokémon por tipo
   async getPokemonByType(type) {
