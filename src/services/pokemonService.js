@@ -45,16 +45,70 @@ class PokemonService {
     }
   }
 
-  // Buscar Pokémon por ID
-  async getPokemonById(id) {
+  // Buscar Pokémon por nome parcial
+  async searchPokemonByName(name) {
     try {
-      const response = await fetch(`${API_BASE_URL}/pokemon/${id}`);
+      // Buscar uma lista maior de Pokémon para fazer busca parcial
+      const response = await fetch(`${API_BASE_URL}/pokemon?limit=1000`);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar lista de Pokémon');
+      }
+      const data = await response.json();
+      
+      // Filtrar Pokémon que contenham o nome buscado
+      const matchingPokemon = data.results.filter(pokemon => 
+        pokemon.name.toLowerCase().includes(name.toLowerCase())
+      );
+      
+      // Buscar detalhes completos apenas dos Pokémon que correspondem
+      const pokemonDetails = await Promise.all(
+        matchingPokemon.slice(0, 20).map(async (pokemon) => {
+          const details = await this.getPokemonDetails(pokemon.url);
+          return details;
+        })
+      );
+      
+      return pokemonDetails;
+    } catch (error) {
+      console.error('Erro ao buscar Pokémon por nome:', error);
+      throw error;
+    }
+  }
+
+  // Buscar Pokémon por nome
+  async getPokemonByName(name) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/pokemon/${name.toLowerCase()}`);
       if (!response.ok) {
         throw new Error('Pokémon não encontrado');
       }
       return await response.json();
     } catch (error) {
-      console.error('Erro ao buscar Pokémon por ID:', error);
+      console.error('Erro ao buscar Pokémon por nome:', error);
+      throw error;
+    }
+  }
+
+  // Buscar Pokémon por tipo
+  async getPokemonByType(type) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/type/${type}`);
+      if (!response.ok) {
+        throw new Error('Tipo não encontrado');
+      }
+      const data = await response.json();
+      
+      // Buscar detalhes completos de TODOS os Pokémon do tipo
+      const pokemonDetails = await Promise.all(
+        data.pokemon.map(async (pokemonInfo) => {
+          const details = await this.getPokemonDetails(pokemonInfo.pokemon.url);
+          return details;
+        })
+      );
+      
+      return pokemonDetails;
+    } catch (error) {
+      console.error('Erro ao buscar Pokémon por tipo:', error);
       throw error;
     }
   }
