@@ -1,3 +1,4 @@
+// Imports principais do React e componentes
 import React, { useState } from 'react'
 import Header from './components/Header/Header'
 import Loading from './components/Loading/Loading'
@@ -6,6 +7,7 @@ import PokemonList from './pages/PokemonList/PokemonList'
 import PokemonDetails from './pages/PokemonDetails/PokemonDetails'
 import styled from 'styled-components'
 
+// Container principal da aplicação com gradiente de fundo
 const AppContainer = styled.div`
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -14,6 +16,7 @@ const AppContainer = styled.div`
   width: 100%;
 `;
 
+// Container da página inicial com responsividade
 const HomeContainer = styled.main`
   padding: 2rem 1rem;
   text-align: center;
@@ -201,30 +204,37 @@ const HomeButton = styled.button`
   }
 `;
 
+// Componente principal da aplicação
 function App() {
+  // Estados para controlar a navegação e dados
   const [currentView, setCurrentView] = useState('home') // 'home', 'pokemon', 'pokemon-details', 'loading', 'error'
   const [selectedPokemon, setSelectedPokemon] = useState(null)
 
+  // Função para resetar a aplicação
   const handleReset = () => {
     setCurrentView('home')
     setSelectedPokemon(null)
   }
 
+  // Função para quando clica em um Pokémon
   const handlePokemonClick = (pokemon) => {
     setSelectedPokemon(pokemon)
     setCurrentView('pokemon-details')
   }
 
+  // Função para voltar ao início
   const handleGoHome = () => {
     setCurrentView('home')
     setSelectedPokemon(null)
   }
 
+  // Função para voltar à lista de Pokémon
   const handleBackToList = () => {
     setCurrentView('pokemon')
     setSelectedPokemon(null)
   }
 
+  // Função para renderizar o conteúdo baseado na view atual
   const renderContent = () => {
     switch (currentView) {
       case 'pokemon':

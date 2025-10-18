@@ -1,6 +1,8 @@
+// Imports necessários
 import React from 'react';
 import styled from 'styled-components';
 
+// Container principal do cabeçalho
 const HeaderContainer = styled.header`
   background-color: #333;
   color: white;
@@ -10,6 +12,7 @@ const HeaderContainer = styled.header`
   width: 100%;
 `;
 
+// Título principal
 const Title = styled.h1`
   margin: 0;
   font-size: 1.8rem;
@@ -20,6 +23,7 @@ const Title = styled.h1`
   }
 `;
 
+// Subtítulo
 const Subtitle = styled.p`
   margin: 0.5rem 0 0 0;
   font-size: 1rem;
@@ -30,6 +34,7 @@ const Subtitle = styled.p`
   }
 `;
 
+// Componente de cabeçalho da aplicação
 function Header() {
   return (
     <HeaderContainer>

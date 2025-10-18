@@ -1,3 +1,4 @@
+// Imports necessários para a página de lista
 import React, { useState, useEffect } from 'react';
 import pokemonService from '../../services/pokemonService';
 import Loading from '../../components/Loading/Loading';
@@ -113,7 +114,9 @@ const HomeButton = styled.button`
   }
 `;
 
+// Componente principal da lista de Pokémon
 function PokemonList({ onPokemonClick, onGoHome }) {
+  // Estados para gerenciar dados e interface
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -122,10 +125,12 @@ function PokemonList({ onPokemonClick, onGoHome }) {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
+  // Carrega a lista inicial quando o componente monta
   useEffect(() => {
     loadPokemonList();
   }, []);
 
+  // Função para carregar a lista inicial de Pokémon
   const loadPokemonList = async () => {
     try {
       setLoading(true);
@@ -140,6 +145,7 @@ function PokemonList({ onPokemonClick, onGoHome }) {
     }
   };
 
+  // Função para carregar Pokémon por tipo específico
   const loadPokemonByType = async (type) => {
     try {
       setLoading(true);
@@ -154,6 +160,7 @@ function PokemonList({ onPokemonClick, onGoHome }) {
     }
   };
 
+  // Função para buscar Pokémon por nome com debounce
   const searchPokemonByName = async (name) => {
     if (name.length < 2) {
       setSearchResults([]);
@@ -183,7 +190,7 @@ function PokemonList({ onPokemonClick, onGoHome }) {
     }
   }, [selectedType]);
 
-  // Buscar Pokémon por nome com debounce
+  // Buscar Pokémon por nome com debounce de 500ms
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (searchTerm.trim()) {
@@ -197,6 +204,7 @@ function PokemonList({ onPokemonClick, onGoHome }) {
     return () => clearTimeout(timeoutId);
   }, [searchTerm]);
 
+  // Função para lidar com clique em Pokémon
   const handlePokemonClick = (pokemon) => {
     if (onPokemonClick) {
       onPokemonClick(pokemon);
@@ -205,7 +213,7 @@ function PokemonList({ onPokemonClick, onGoHome }) {
     }
   };
 
-  // Determinar quais Pokémon mostrar
+  // Determinar quais Pokémon mostrar baseado na busca
   const getDisplayPokemon = () => {
     if (searchTerm.trim()) {
       return searchResults;

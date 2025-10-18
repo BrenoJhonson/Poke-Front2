@@ -1,6 +1,9 @@
+// URL base da PokéAPI
 const API_BASE_URL = 'https://pokeapi.co/api/v2';
 
+// Classe principal para comunicação com a PokéAPI
 class PokemonService {
+  // Busca a lista inicial de Pokémon (primeiros 20)
   async getPokemonList() {
     try {
       const response = await fetch(`${API_BASE_URL}/pokemon?limit=20`);
@@ -29,6 +32,7 @@ class PokemonService {
     }
   }
 
+  // Busca detalhes específicos de um Pokémon
   async getPokemonDetails(url) {
     try {
       const response = await fetch(url);
@@ -42,6 +46,7 @@ class PokemonService {
     }
   }
 
+  // Busca Pokémon por nome (busca parcial)
   async searchPokemonByName(name) {
     try {
       const response = await fetch(`${API_BASE_URL}/pokemon?limit=1000`);
@@ -71,6 +76,7 @@ class PokemonService {
   }
 
 
+  // Busca todos os Pokémon de um tipo específico
   async getPokemonByType(type) {
     try {
       const response = await fetch(`${API_BASE_URL}/type/${type}`);
@@ -95,4 +101,5 @@ class PokemonService {
   }
 }
 
+// Exporta uma instância única do serviço
 export default new PokemonService();

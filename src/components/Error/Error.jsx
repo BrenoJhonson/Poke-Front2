@@ -1,6 +1,8 @@
+// Imports necessários
 import React from 'react';
 import styled from 'styled-components';
 
+// Container principal do componente de erro
 const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,11 +16,13 @@ const ErrorContainer = styled.div`
   margin: 1rem;
 `;
 
+// Ícone do erro
 const ErrorIcon = styled.div`
   font-size: 3rem;
   margin-bottom: 1rem;
 `;
 
+// Título do erro
 const ErrorTitle = styled.h3`
   color: #c33;
   margin-bottom: 0.5rem;
@@ -26,12 +30,14 @@ const ErrorTitle = styled.h3`
   margin-top: 0;
 `;
 
+// Mensagem do erro
 const ErrorMessage = styled.p`
   color: #c33;
   margin-bottom: 1rem;
   font-size: 1rem;
 `;
 
+// Botão para tentar novamente
 const RetryButton = styled.button`
   background-color: #c33;
   color: white;
@@ -48,15 +54,16 @@ const RetryButton = styled.button`
   }
 `;
 
-function Error({ message = "Algo deu errado!", onRetry }) {
+// Componente de erro com mensagem personalizada e botão de retry
+function Error({ message = "Ops! Algo não funcionou", onRetry }) {
   return (
     <ErrorContainer>
       <ErrorIcon>⚠️</ErrorIcon>
-      <ErrorTitle>Erro</ErrorTitle>
+      <ErrorTitle>Deu ruim</ErrorTitle>
       <ErrorMessage>{message}</ErrorMessage>
       {onRetry && (
         <RetryButton onClick={onRetry}>
-          Tentar novamente
+          Tentar de novo
         </RetryButton>
       )}
     </ErrorContainer>
