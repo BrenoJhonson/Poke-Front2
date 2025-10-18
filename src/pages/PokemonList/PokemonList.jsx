@@ -25,9 +25,16 @@ const PageTitle = styled.h2`
 `;
 
 const ResultsInfo = styled.p`
-  color: #666;
+  color: #2d3748;
   margin-bottom: 1rem;
   font-size: 1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const EmptyState = styled.div`
