@@ -15,11 +15,13 @@ const SearchBarMain = styled.div`
   align-items: center;
   padding: 1rem;
   gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 const SearchInputContainer = styled.div`
   flex: 1;
   position: relative;
+  min-width: 200px;
 `;
 
 const SearchInput = styled.input`
@@ -31,6 +33,7 @@ const SearchInput = styled.input`
   outline: none;
   transition: border-color 0.2s ease;
   padding-left: 2.5rem;
+  box-sizing: border-box;
 
   &:focus {
     border-color: #667eea;
@@ -58,6 +61,8 @@ const FilterButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 
   &:hover {
     opacity: 0.9;
@@ -78,6 +83,7 @@ const ClearButton = styled.button`
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s ease;
+  flex-shrink: 0;
 
   &:hover {
     background-color: #5a6268;
