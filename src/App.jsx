@@ -50,44 +50,11 @@ const HomeButton = styled.button`
   &:hover {
     background-color: #5a67d8;
   }
-
-  &:nth-child(2) {
-    background-color: #48bb78;
-    
-    &:hover {
-      background-color: #38a169;
-    }
-  }
-
-  &:nth-child(3) {
-    background-color: #f56565;
-    
-    &:hover {
-      background-color: #e53e3e;
-    }
-  }
-
-  &:nth-child(4) {
-    background-color: #6c757d;
-    
-    &:hover {
-      background-color: #5a6268;
-    }
-  }
 `;
 
 function App() {
   const [currentView, setCurrentView] = useState('home') // 'home', 'pokemon', 'pokemon-details', 'loading', 'error'
   const [selectedPokemon, setSelectedPokemon] = useState(null)
-
-  const handleShowLoading = () => {
-    setCurrentView('loading')
-    setTimeout(() => setCurrentView('home'), 2000)
-  }
-
-  const handleShowError = () => {
-    setCurrentView('error')
-  }
 
   const handleReset = () => {
     setCurrentView('home')
@@ -118,20 +85,11 @@ function App() {
         return (
           <HomeContainer>
             <HomeTitle>Bem-vindo ao mundo dos Pokémon!</HomeTitle>
-            <HomeDescription>Em breve você poderá explorar todos os Pokémon aqui.</HomeDescription>
+            <HomeDescription>Venha se aventurar pelos mais diversos tipos de Pokémon.</HomeDescription>
             
             <ButtonContainer>
               <HomeButton onClick={() => setCurrentView('pokemon')}>
                 Ver Lista de Pokémon
-              </HomeButton>
-              <HomeButton onClick={handleShowLoading}>
-                Testar Loading
-              </HomeButton>
-              <HomeButton onClick={handleShowError}>
-                Testar Error
-              </HomeButton>
-              <HomeButton onClick={handleReset}>
-                Reset
               </HomeButton>
             </ButtonContainer>
           </HomeContainer>

@@ -123,6 +123,22 @@ const StatValue = styled.div`
   color: #667eea;
 `;
 
+const AbilityBadge = styled.span`
+  background-color: #667eea;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0.2rem;
+  display: inline-block;
+`;
+
+const HiddenAbilityBadge = styled(AbilityBadge)`
+  background-color: #f56565;
+`;
+
 function PokemonDetails({ pokemon, onBack }) {
   const getTypeColor = (type) => {
     const colors = {
@@ -202,6 +218,25 @@ function PokemonDetails({ pokemon, onBack }) {
                 </StatCard>
               ))}
             </StatsGrid>
+          </div>
+        )}
+
+        {pokemon.abilities && (
+          <div style={{ marginTop: '2rem' }}>
+            <SectionTitle>Habilidades:</SectionTitle>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem' }}>
+              {pokemon.abilities.map((abilityInfo, index) => (
+                abilityInfo.is_hidden ? (
+                  <HiddenAbilityBadge key={index} title="Habilidade Oculta">
+                    {abilityInfo.ability.name.replace('-', ' ')} (Oculta)
+                  </HiddenAbilityBadge>
+                ) : (
+                  <AbilityBadge key={index}>
+                    {abilityInfo.ability.name.replace('-', ' ')}
+                  </AbilityBadge>
+                )
+              ))}
+            </div>
           </div>
         )}
       </DetailsCard>
