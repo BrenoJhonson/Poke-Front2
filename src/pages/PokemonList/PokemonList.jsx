@@ -62,7 +62,51 @@ const PokemonGrid = styled.div`
   }
 `;
 
-function PokemonList({ onPokemonClick }) {
+const HeaderSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+`;
+
+const HomeButton = styled.button`
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  white-space: nowrap;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  @media (max-width: 767px) {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    align-self: center;
+  }
+`;
+
+function PokemonList({ onPokemonClick, onGoHome }) {
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -180,7 +224,14 @@ function PokemonList({ onPokemonClick }) {
 
   return (
     <ListContainer>
-      <PageTitle>Lista de Pokémon</PageTitle>
+      <HeaderSection>
+        <PageTitle>Lista de Pokémon</PageTitle>
+        {onGoHome && (
+          <HomeButton onClick={onGoHome}>
+            Voltar ao Início
+          </HomeButton>
+        )}
+      </HeaderSection>
       
       <SearchBar
         searchTerm={searchTerm}

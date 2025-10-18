@@ -215,6 +215,11 @@ function App() {
     setCurrentView('pokemon-details')
   }
 
+  const handleGoHome = () => {
+    setCurrentView('home')
+    setSelectedPokemon(null)
+  }
+
   const handleBackToList = () => {
     setCurrentView('pokemon')
     setSelectedPokemon(null)
@@ -223,7 +228,7 @@ function App() {
   const renderContent = () => {
     switch (currentView) {
       case 'pokemon':
-        return <PokemonList onPokemonClick={handlePokemonClick} />
+        return <PokemonList onPokemonClick={handlePokemonClick} onGoHome={handleGoHome} />
       case 'pokemon-details':
         return <PokemonDetails pokemon={selectedPokemon} onBack={handleBackToList} />
       case 'loading':
