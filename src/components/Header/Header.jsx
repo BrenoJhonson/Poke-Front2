@@ -24,8 +24,8 @@ const Subtitle = styled.p`
 function Header() {
   return (
     <HeaderContainer>
-      <Title>🎮 Pokédex Interativa</Title>
-      <Subtitle>Explore o mundo dos Pokémon</Subtitle>
+      <Title>Pokédex Interativa</Title>
+      <Subtitle>Descubra o mundo dos Pokémon</Subtitle>
     </HeaderContainer>
   );
 }

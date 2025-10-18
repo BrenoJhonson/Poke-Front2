@@ -223,32 +223,32 @@ function App() {
         return (
           <HomeContainer>
             <WelcomeCard>
-              <HomeTitle>Bem-vindo ao mundo dos Pokémon!</HomeTitle>
-              <HomeDescription>Venha se aventurar pelos mais diversos tipos de Pokémon.</HomeDescription>
+              <HomeTitle>Bem-vindo à Pokédex</HomeTitle>
+              <HomeDescription>Explore o universo dos Pokémon com nossa ferramenta interativa.</HomeDescription>
               
               <FeaturesGrid>
                 <FeatureCard delay="0.1s">
                   <FeatureIcon>🔍</FeatureIcon>
-                  <FeatureTitle>Busca Inteligente</FeatureTitle>
-                  <FeatureDescription>Encontre qualquer Pokémon digitando parte do nome</FeatureDescription>
+                  <FeatureTitle>Busca Avançada</FeatureTitle>
+                  <FeatureDescription>Encontre Pokémon por nome com busca parcial</FeatureDescription>
                 </FeatureCard>
                 
                 <FeatureCard delay="0.2s">
                   <FeatureIcon>🎨</FeatureIcon>
                   <FeatureTitle>Filtros por Tipo</FeatureTitle>
-                  <FeatureDescription>Explore Pokémon por tipo com filtros visuais coloridos</FeatureDescription>
+                  <FeatureDescription>Navegue pelos diferentes tipos de Pokémon</FeatureDescription>
                 </FeatureCard>
                 
                 <FeatureCard delay="0.3s">
                   <FeatureIcon>📊</FeatureIcon>
-                  <FeatureTitle>Estatísticas Detalhadas</FeatureTitle>
-                  <FeatureDescription>Veja todas as informações e habilidades dos Pokémon</FeatureDescription>
+                  <FeatureTitle>Estatísticas Completas</FeatureTitle>
+                  <FeatureDescription>Visualize stats e habilidades detalhadas</FeatureDescription>
                 </FeatureCard>
               </FeaturesGrid>
               
               <ButtonContainer>
                 <HomeButton onClick={() => setCurrentView('pokemon')}>
-                  🚀 Explorar Pokédex
+                  Explorar Pokédex
                 </HomeButton>
               </ButtonContainer>
             </WelcomeCard>

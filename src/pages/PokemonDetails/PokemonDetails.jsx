@@ -171,7 +171,7 @@ function PokemonDetails({ pokemon, onBack }) {
   return (
     <DetailsContainer>
       <BackButton onClick={onBack}>
-        ← Voltar para Lista
+        ← Voltar à lista
       </BackButton>
 
       <DetailsCard>

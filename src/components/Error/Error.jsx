@@ -51,12 +51,12 @@ const RetryButton = styled.button`
 function Error({ message = "Algo deu errado!", onRetry }) {
   return (
     <ErrorContainer>
-      <ErrorIcon>😞</ErrorIcon>
-      <ErrorTitle>Ops!</ErrorTitle>
+      <ErrorIcon>⚠️</ErrorIcon>
+      <ErrorTitle>Erro</ErrorTitle>
       <ErrorMessage>{message}</ErrorMessage>
       {onRetry && (
         <RetryButton onClick={onRetry}>
-          Tentar Novamente
+          Tentar novamente
         </RetryButton>
       )}
     </ErrorContainer>

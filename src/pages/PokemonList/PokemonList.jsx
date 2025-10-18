@@ -57,7 +57,7 @@ function PokemonList({ onPokemonClick }) {
       const data = await pokemonService.getPokemonList();
       setPokemonList(data.results);
     } catch (err) {
-      setError('Erro ao carregar lista de Pokémon');
+      setError('Erro ao carregar Pokémon');
       console.error(err);
     } finally {
       setLoading(false);
@@ -107,7 +107,7 @@ function PokemonList({ onPokemonClick }) {
     }
   }, [selectedType]);
 
-  // Buscar Pokémon por nome quando o termo muda
+  // Buscar Pokémon por nome com debounce
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (searchTerm.trim()) {
@@ -132,10 +132,8 @@ function PokemonList({ onPokemonClick }) {
   // Determinar quais Pokémon mostrar
   const getDisplayPokemon = () => {
     if (searchTerm.trim()) {
-      // Se há busca por nome, mostrar resultados da busca
       return searchResults;
     } else {
-      // Se não há busca, mostrar lista filtrada por tipo
       return pokemonList;
     }
   };
@@ -169,11 +167,11 @@ function PokemonList({ onPokemonClick }) {
       <ResultsInfo>
         {searchTerm.trim() 
           ? (displayPokemon.length > 0 
-              ? `Encontrados ${displayPokemon.length} Pokémon com "${searchTerm}"`
-              : `Nenhum Pokémon encontrado com o nome "${searchTerm}"`)
+              ? `${displayPokemon.length} Pokémon encontrados para "${searchTerm}"`
+              : `Nenhum Pokémon encontrado para "${searchTerm}"`)
           : (selectedType === 'all' 
-              ? `Encontrados ${pokemonList.length} Pokémon`
-              : `Encontrados ${pokemonList.length} Pokémon do tipo ${selectedType}`)
+              ? `${pokemonList.length} Pokémon disponíveis`
+              : `${pokemonList.length} Pokémon do tipo ${selectedType}`)
         }
       </ResultsInfo>
       
@@ -183,8 +181,8 @@ function PokemonList({ onPokemonClick }) {
         </EmptyState>
       ) : displayPokemon.length === 0 && searchTerm.trim() ? (
         <EmptyState>
-          <p>Nenhum Pokémon encontrado com o nome "{searchTerm}".</p>
-          <p>Tente um nome diferente ou limpe a busca.</p>
+          <p>Nenhum Pokémon encontrado para "{searchTerm}".</p>
+          <p>Tente uma busca diferente.</p>
         </EmptyState>
       ) : (
         <PokemonGrid>
