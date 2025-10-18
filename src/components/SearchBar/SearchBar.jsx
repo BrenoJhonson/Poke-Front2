@@ -8,6 +8,8 @@ const SearchContainer = styled.div`
   margin-bottom: 2rem;
   overflow: hidden;
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const SearchBarMain = styled.div`
@@ -16,12 +18,22 @@ const SearchBarMain = styled.div`
   padding: 1rem;
   gap: 1rem;
   flex-wrap: wrap;
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
 `;
 
 const SearchInputContainer = styled.div`
   flex: 1;
   position: relative;
   min-width: 200px;
+  
+  @media (max-width: 767px) {
+    min-width: 100%;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -108,6 +120,16 @@ const TypeGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 0.5rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.5rem;
+  }
 `;
 
 const TypeButton = styled.button`

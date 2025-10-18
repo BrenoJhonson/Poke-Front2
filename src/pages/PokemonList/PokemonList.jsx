@@ -8,6 +8,10 @@ import styled from 'styled-components';
 
 const ListContainer = styled.div`
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const PageTitle = styled.h2`
@@ -35,6 +39,23 @@ const PokemonGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) and (max-width: 1199px) {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1rem;
+  }
+  
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
 `;
 
 function PokemonList({ onPokemonClick }) {

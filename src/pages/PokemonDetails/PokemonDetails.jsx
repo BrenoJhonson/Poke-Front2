@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const DetailsContainer = styled.div`
   padding: 2rem;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
+  width: 100%;
 `;
 
 const BackButton = styled.button`
@@ -99,8 +100,16 @@ const TypeBadge = styled.span`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const StatCard = styled.div`

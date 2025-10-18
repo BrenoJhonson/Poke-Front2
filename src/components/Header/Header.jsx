@@ -7,18 +7,27 @@ const HeaderContainer = styled.header`
   padding: 1rem;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 `;
 
 const Title = styled.h1`
   margin: 0;
   font-size: 1.8rem;
   font-weight: 700;
+  
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Subtitle = styled.p`
   margin: 0.5rem 0 0 0;
   font-size: 1rem;
   opacity: 0.9;
+  
+  @media (max-width: 767px) {
+    font-size: 0.9rem;
+  }
 `;
 
 function Header() {
