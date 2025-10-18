@@ -7,11 +7,15 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import styled from 'styled-components';
 
 const ListContainer = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  
+  @media (max-width: 767px) {
+    padding: 0.5rem;
+  }
 `;
 
 const PageTitle = styled.h2`

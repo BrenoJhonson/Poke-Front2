@@ -15,24 +15,36 @@ const AppContainer = styled.div`
 `;
 
 const HomeContainer = styled.main`
-  padding: 4rem 2rem;
+  padding: 2rem 1rem;
   text-align: center;
   position: relative;
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: 767px) {
+    padding: 1rem 0.5rem;
+  }
 `;
 
 const WelcomeCard = styled.div`
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   animation: slideUp 0.8s ease-out;
   margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: 767px) {
+    padding: 1.5rem 1rem;
+    border-radius: 15px;
+  }
 
   @keyframes slideUp {
     from {
@@ -77,20 +89,24 @@ const HomeDescription = styled.p`
 
 const FeaturesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
   margin: 2rem 0;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
 
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin: 1rem 0;
   }
 `;
 

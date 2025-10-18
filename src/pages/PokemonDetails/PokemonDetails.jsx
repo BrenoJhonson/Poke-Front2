@@ -2,10 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const DetailsContainer = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: 767px) {
+    padding: 0.5rem;
+  }
 `;
 
 const BackButton = styled.button`
@@ -28,14 +33,21 @@ const BackButton = styled.button`
 const DetailsCard = styled.div`
   background-color: white;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: 767px) {
+    padding: 1rem;
+    border-radius: 12px;
+  }
 `;
 
 const PokemonImageContainer = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   margin: 0 auto 1.5rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   border-radius: 50%;
@@ -44,6 +56,13 @@ const PokemonImageContainer = styled.div`
   justify-content: center;
   border: 5px solid #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 767px) {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+    border: 3px solid #fff;
+  }
 `;
 
 const PokemonImage = styled.img`
